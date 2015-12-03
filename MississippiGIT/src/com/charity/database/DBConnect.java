@@ -7,7 +7,7 @@ import com.mysql.jdbc.Connection;
 
 
 public class DBConnect {
-	public static Connection DBConnect() throws SQLException {//
+	public static Connection DBConnect() throws SQLException {// 
 
 		String url = "jdbc:mysql://localhost:3306/mississippi";
 		
