@@ -156,7 +156,6 @@ import com.charity.database.DBConnect;
 						String address = txtEmployeeAddress.getText();
 						
 						String pn = txtTelephoneNumber.getText();
-						int phoneNo = Integer.parseInt(pn);
 						
 						String sg = (String)cbxStaffGrade.getSelectedItem();
 						int staffGrade = Integer.parseInt(sg);
@@ -177,7 +176,7 @@ import com.charity.database.DBConnect;
 						preparedStmt.setInt(1, 0);
 						preparedStmt.setString(2, employeeName);
 						preparedStmt.setString(3, address);
-						preparedStmt.setInt(4, phoneNo);
+						preparedStmt.setString(4, pn);
 						preparedStmt.setInt(5, staffGrade);
 						
 						preparedStmt.execute();

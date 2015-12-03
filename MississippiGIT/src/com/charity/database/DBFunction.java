@@ -29,7 +29,7 @@ public class DBFunction{
 		switch(table){
 			case "client":  input = "VALUES (null, '" + item[0] + "', '" + item[1] + "', '" + item[2] + "')";
 				break;
-			case "employees": input = "VALUES (null, '" + item[0] + "', '" + item[1] + "', '" + item[2] + "', " + item[3] + ")";
+			case "employees": input = "VALUES (null, '" + item[0] + "', '" + item[1] + "', '" + item[2] + "', '" + item[3] + "')";
 				break;
 		}
 		
@@ -72,22 +72,30 @@ public class DBFunction{
 					" SET name = '" + item [1] +"', "+
 					"address = '" + item[2] + "', " +
 					"ContactNumber = '"+ item[3] +
-					"' WHERE idcustomer = " + item[0]);
+					"' WHERE customerid = " + item[0]);
 				break;
-			case "employee":  stmt.executeUpdate("UPDATE " + table + 
+			case "employees":  stmt.executeUpdate("UPDATE " + table + 
 					" SET employeename = '" + item [1] +"', "+
 					"address = '" + item[2] + "', " +
 					"tel = '"+ item[3] + "', " +
-					"EmployeeGrades = '" + item[4]+ 
-					"' WHERE idcustomer = " + item[0]);
+					"EmployeeGrades_GradeId = '" + item[4]+ 
+					"' WHERE employeeId = " + item[0]);
 				break;
 		}
+
+		System.out.println("Update " + table + " WHERE " + field + "='" + search + "'");
 		
 		
 		
 	}
 
-	public static void Delete(String search, String field, Connection con, String table) throws SQLException {
+	public static void Delete(String search, String field, String table) throws SQLException {
+		Connection con = null;
+		try {
+			con = DBConnect.DBConnect();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		Statement stmt = (Statement) con.createStatement();
 		stmt.executeUpdate("DELETE FROM " + table + " WHERE " + field + " = '" + search + "'");
 	}

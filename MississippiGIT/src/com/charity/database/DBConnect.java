@@ -15,7 +15,7 @@ public class DBConnect {
 		
 		prop.setProperty("user", "root");
 		
-		prop.setProperty("password", "password");
+		prop.setProperty("password", "12345");
 
 		Driver d = new com.mysql.jdbc.Driver();
 		

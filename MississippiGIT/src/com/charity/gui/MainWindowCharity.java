@@ -10,6 +10,7 @@ import com.charity.database.DBConnect;
 import com.charity.database.DBFunction;
 import com.mississippi.gui.AddEmployeeGUI;
 import com.mississippi.gui.SelectClientGUI;
+import com.mississippi.gui.UpdateEmployeeGUI;
 import com.mississippi.gui.addClientGui;
 
 import java.awt.event.*;
@@ -40,7 +41,7 @@ import java.io.*;
 					mAbout, mHelpContents,
 					//new menu items...
 					mAddEmployee, mSearchEmployee, mStaffGrades,
-					mBonus, mAddClient, mSearchClient;
+					mBonus, mAddClient, mSearchClient, mUpdateEmployee, mDeleteEmployee;
 		
 		private JButton toolSaveData, toolRetrieveData, 
 					toolAdd, toolRemove, toolShowDaily, 
@@ -61,7 +62,7 @@ import java.io.*;
 	     */	
 	    public MainWindowCharity()
 		{
-			super("Main Window Charity");		
+			super("Mississpi");		
 
 			addWindowListener(new WindowAdapter()
 			{
@@ -98,83 +99,73 @@ import java.io.*;
 			mFile = new JMenu("File");
 			mFile.setFont(font);
 			mFile.setMnemonic(KeyEvent.VK_F);
-			
-			
-			
-			mFile.add(mSaveData = new JMenuItem("Save Data") );
-			mSaveData.setMnemonic(KeyEvent.VK_S);
-			mSaveData.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK) );
-			mSaveData.addActionListener(this);
-			mSaveData.setFont(font);
-			
-			mFile.add(mRetrieveData = new JMenuItem("Retrieve Data") );
-			mRetrieveData.setMnemonic(KeyEvent.VK_R);
-			mRetrieveData.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.ALT_MASK) );
-			mRetrieveData.addActionListener(this);
-			mRetrieveData.setFont(font);		
-			
-			mFile.addSeparator();
-		
+
 			mFile.add(mQuit = new JMenuItem("Quit") );
 			mQuit.setMnemonic(KeyEvent.VK_Q);
 			mQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.ALT_MASK) );
 			mQuit.addActionListener(this);
 			mQuit.setFont(font);
 			
+			
+			//TO BE DELETED
+			mFile.add(mSaveData = new JMenuItem("Save Data") );
+			mSaveData.setMnemonic(KeyEvent.VK_S);
+			mSaveData.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK) );
+			mSaveData.addActionListener(this);
+			mSaveData.setFont(font);
+			//
+			mFile.add(mRetrieveData = new JMenuItem("Retrieve Data") );
+			mRetrieveData.setMnemonic(KeyEvent.VK_R);
+			mRetrieveData.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.ALT_MASK) );
+			mRetrieveData.addActionListener(this);
+			mRetrieveData.setFont(font);		
+			//
+			mFile.addSeparator();
+			
+			//
 			mSomething = new JMenu("S");
 			mSomething.setFont(font);
 			mSomething.setMnemonic(KeyEvent.VK_V);
-			
+			//
 			mSomething.add(mAdd = new JMenuItem("Add New") );
 			mAdd.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK) );
 			mAdd.setFont(font);
 			mAdd.addActionListener(this);
-			
+			//
 			mSomething.add(mSearch = new JMenuItem("Search") );
 			mSearch.setMnemonic(KeyEvent.VK_V);
 			mSearch.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.ALT_MASK) );
 			mSearch.setFont(font);
 			mSearch.addActionListener(this);
-				
+			//
 			mShow = new JMenu("Show");
 			mShow.setFont(font);
 			mShow.setMnemonic(KeyEvent.VK_S);
-			
+			//
 			mShow.add(mShowDaily = new JMenuItem("Show Object") );
 			mShowDaily.setMnemonic(KeyEvent.VK_D);
 			mShowDaily.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.ALT_MASK) );
 			mShowDaily.setFont(font);
 			mShowDaily.addActionListener(this);
-			
+			//
 			mShow.add(mShowWeekly = new JMenuItem("Show Event") );
 			mShowWeekly.setMnemonic(KeyEvent.VK_W);
 			mShowWeekly.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.ALT_MASK) );
 			mShowWeekly.setFont(font);
 			mShowWeekly.addActionListener(this);
-				
+			//	
 			mShow.add(mShowTodaysReminder = new JMenuItem("Customise Search") );
 			mShowTodaysReminder.setMnemonic(KeyEvent.VK_T);
 			mShowTodaysReminder.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.ALT_MASK) );
 			mShowTodaysReminder.setFont(font);
-			mShowTodaysReminder.addActionListener(this);	
+			mShowTodaysReminder.addActionListener(this);
+			//ABOVE TO BE DELETED
+			
 			
 			mHelp = new JMenu("Help");
 			mHelp.setFont(font);
 			mHelp.setMnemonic(KeyEvent.VK_H);
-			mHelp.addMouseListener(new MouseAdapter()
-			{
-				public void mouseEntered(MouseEvent me)
-				{				
-					mHelp.setBackground(backcolor);
-					mHelp.setForeground(Color.white);
-				}
-				public void mouseExited(MouseEvent m)
-				{				
-					mHelp.setBackground(emptycolor);
-					mHelp.setForeground(Color.black);
-				}
-			});
-			
+						
 			mHelp.add(mHelpContents = new JMenuItem("Help Contents") );
 			mHelpContents.setMnemonic(KeyEvent.VK_N);
 			mHelpContents.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK) );
@@ -225,7 +216,19 @@ import java.io.*;
 			mSearchEmployee.addActionListener(this);
 			mSearchEmployee.setFont(font);
 			
-			mFile.addSeparator();
+			mEmployee.add(mUpdateEmployee = new JMenuItem("Update") );
+//			mSearchEmployee.setMnemonic(KeyEvent.VK_S);
+//			mSearchEmployee.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK) );
+			mUpdateEmployee.addActionListener(this);
+			mUpdateEmployee.setFont(font);
+			
+			mEmployee.add(mDeleteEmployee = new JMenuItem("Delete") );
+//			mSearchEmployee.setMnemonic(KeyEvent.VK_S);
+//			mSearchEmployee.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK) );
+			mDeleteEmployee.addActionListener(this);
+			mDeleteEmployee.setFont(font);
+			
+			mEmployee.addSeparator();
 			
 			mEmployee.add(mStaffGrades = new JMenuItem("Staff Grades") );
 //			mStaffGrades.setMnemonic(KeyEvent.VK_S);
@@ -337,57 +340,20 @@ import java.io.*;
 				addClientGui cliEntries = new  addClientGui();
 				cliEntries.setVisible(true);
 			}
-			if(source == mSaveData || source == toolSaveData)
-			{       
-	                        
-//	            saveToDisk(ce , "DataFolder//PersonalCalendar.dat");
-	    //        saveReminderToDisk(myCalendar, "DataFolder//Reminder.dat");
-
-			}
-			if (source == mRetrieveData || source == toolRetrieveData)
-			{	
-				int n = JOptionPane.showConfirmDialog(this,
-	                "This operation will overwrite all data of the current calendar entries in the memory!",
-	                "Retrieve data from file", JOptionPane.OK_CANCEL_OPTION,
-	                JOptionPane.WARNING_MESSAGE );
-
-				if (n==0) 
-				{
-//					ce = retrieveFromDisk("DataFolder//PersonalCalendar.dat"); 
-		//			myCalendar = retrieveReminderFromDisk("DataFolder//Reminder.dat"); 
-				}
-	            else JOptionPane.showMessageDialog(null,"You have cancelled the retrieval operation."); 
-	        }
-			if (source == mQuit)
-			{
-				int yesno = JOptionPane.showConfirmDialog(null,"Do you really want to close the window?","Closing...",
-														JOptionPane.YES_NO_OPTION);
-				int yes = JOptionPane.YES_OPTION;
-				if(yesno == yes)
-				{
-					
-					System.exit(0);	
-	            
-	        	}
-	        }
-			if (source == mAdd || source == toolAdd)
-			{
-				
-				calEntries = new CalendarEntries(this, "Add Calendar Entry Form", true);
-				
-				calEntries.setVisible(true);
-			}
+			
+			//ADD EMPLOYEE
 			if (source == mAddEmployee){
 				empEntries = new AddEmployeeGUI();
 				empEntries.setVisible(true);
 			}
+			//SEARCH AND MAINTAIN EMPLOYEE
 			if(source == mSearchEmployee)
 			{
-				String EmployeeIDString = JOptionPane.showInputDialog(null, "Enter an Employee ID to view their file");
+				String employeeIDString = JOptionPane.showInputDialog(null, "Enter an Employee ID to view their file");
 				
 				ResultSet rs = null;
 				try {
-					rs = DBFunction.Search(EmployeeIDString, "EmployeeId", "employees");
+					rs = DBFunction.Search(employeeIDString, "EmployeeId", "employees");
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -409,64 +375,52 @@ import java.io.*;
 				}else JOptionPane.showMessageDialog(null, results, "Employee information", JOptionPane.PLAIN_MESSAGE);
 				
 			}
+			//UPDATE EMPLOYEE
+			
+			if(source == mUpdateEmployee){
+				
+				UpdateEmployeeGUI empEdit = new UpdateEmployeeGUI();
+				empEdit.setVisible(true);
+				
+			}
+			
+			//DELETE EMPLOYEE
+			if(source == mDeleteEmployee){
+				
+				String employeeIDString = JOptionPane.showInputDialog(null, "Enter an Employee ID to DELETE their file");
+				
+				
+				DBConnect con = new DBConnect();
+				try {
+					DBFunction.Delete(employeeIDString, "EmployeeId", "employees");
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				JOptionPane.showMessageDialog(null, "Employee "+ employeeIDString + "has been deleted.", "Employee Deleted", JOptionPane.INFORMATION_MESSAGE);
+			
+			}
+			//SEARCH AND MAINTAIN CLIENT
 			if (source == mSearchClient)
 			{
 				new SelectClientGUI();
 			}
-		 	if (source == mShowDaily || source == toolShowDaily)
+			
+			
+			if (source == mQuit)
 			{
-				Date t = new Date();
-				String userDateStr = JOptionPane.showInputDialog(null,"Enter the date (dd-mm-yyyy) for which you \nwant to see the daily calendar");
-				String re = "Showing Calendar Entry for "+userDateStr;
-				commonMethodForRemoveAndShowDaily(userDateStr, re);
-				
-			}
-			if (source == mShowWeekly || source == toolShowWeekly)
-			{
-				String userDateStr = JOptionPane.showInputDialog(null,"Enter start of the week:dd-mm-yyyy:");
-				Vector columnNames = new Vector();
-				columnNames.addElement("Calendar Entry Type");
-				columnNames.addElement("Name");
-				columnNames.addElement("Start Time/Time to Occur");
-				columnNames.addElement("Date/Deadline");
-				columnNames.addElement("Duration(Min.)");
-				columnNames.addElement("Location");
-				columnNames.addElement("Status");
-				columnNames.addElement("Description");
-				ShowingCalendar calShowW = new ShowingCalendar(this, "Showing Weekly Calendar", true,columnNames,columnNames.size());
-				if(userDateStr != null)
+				int yesno = JOptionPane.showConfirmDialog(null,"Do you really want to close the window?", "Closing...", JOptionPane.YES_NO_OPTION);
+				int yes = JOptionPane.YES_OPTION;
+				if(yesno == yes)
 				{
-					calShowW.showWeeklyCalendar(userDateStr);
-					calShowW.setVisible(true);
 					
-	            }
-	            else
-	            {
-	            	
-	            	JOptionPane.showMessageDialog(null,"You have cancelled this operation");
-	            	
-	            }
+					System.exit(0);	
 	            
-			}
-			if(source == mShowTodaysReminder || source == toolShowTodaysReminder)
-			{
-				Vector columnNames = new Vector();
-				columnNames.addElement("Calendar Entry Type");
-				columnNames.addElement("Calendar Entry Name");
-				columnNames.addElement("Reminder");
-				columnNames.addElement("Date");
-				columnNames.addElement("Time");
-				ShowingCalendar calShow = new ShowingCalendar(this, "Showing Today's Reminder", true,columnNames,columnNames.size());
-//				calShow.showTodaysReminder();
-				calShow.setVisible(true);
-			}
+	        	}
+	        }
 			if(source == mHelpContents)
 			{
 				JOptionPane.showMessageDialog( null,
-	                    "Personal Calendar Help\n\n" +
-	                    "Use menu and tool bar to navigate through the system\n" +
-	                    "To select use mouse clicks or keyboard shortcuts",
-	                    "Help Contents", JOptionPane.PLAIN_MESSAGE );
+	                    "I'm sorry, I can't help you.", "Help", JOptionPane.PLAIN_MESSAGE );
 			}
 			if(source == mAbout)
 			{
@@ -475,35 +429,7 @@ import java.io.*;
 	                    "About", JOptionPane.PLAIN_MESSAGE );
 			}
 		}
-		private void searchMethod(String search, String table, String field) throws SQLException {
-			Connection con = null;
-			try {
-				con = DBConnect.DBConnect();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			
-			
-			Statement stmt = (Statement) con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * from " + table + " WHERE " + field + "='" + search + "'");
-				
-			String results = "";
-			try {
-				while (rs.next()){
-					results = results + "Employee ID: " + rs.getString("employeeid")+"\n"
-							+ "Name: "+ rs.getString("employeename")+"\n"
-							+ "Address: "+ rs.getString("address")+"\n"
-							+ "Phone Number: "+ rs.getString("tel")+"\n"
-							+ "Pay Grade: "+ rs.getString("Employeegrades_gradeid")+"\n\n";
-				}
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			
-			JOptionPane.showMessageDialog(null, results, "Employee information", JOptionPane.PLAIN_MESSAGE);
-			
-			
-		}
+		
 		/**
 		 * Adds all the tool bar buttons listeners
 		 */
