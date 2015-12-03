@@ -9,6 +9,7 @@ import javax.swing.*;
 import com.charity.database.DBConnect;
 import com.charity.database.DBFunction;
 import com.mississippi.gui.AddEmployeeGUI;
+import com.mississippi.gui.SelectClientGUI;
 import com.mississippi.gui.addClientGui;
 
 import java.awt.event.*;
@@ -22,7 +23,7 @@ import java.io.*;
 
 	public class MainWindowCharity extends JFrame implements ActionListener
 	{
-		
+		 
 		static Vector data, columnNames;
 		addClientGui cliEntries;
 		AddEmployeeGUI empEntries;
@@ -407,6 +408,10 @@ import java.io.*;
 					JOptionPane.showMessageDialog(null, "No employee exists with that ID number, please try another number.", "Employee not found", JOptionPane.ERROR_MESSAGE);					
 				}else JOptionPane.showMessageDialog(null, results, "Employee information", JOptionPane.PLAIN_MESSAGE);
 				
+			}
+			if (source == mSearchClient)
+			{
+				new SelectClientGUI();
 			}
 		 	if (source == mShowDaily || source == toolShowDaily)
 			{
