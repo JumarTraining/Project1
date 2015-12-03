@@ -74,6 +74,14 @@ public class AddCampaignGUI extends JFrame {
 					{
 						JOptionPane.showMessageDialog(currentGUI,"Please enter Campaign Name","Campaign not entered",0);
 										}
+					else if (plannedStartDateString.trim().equals(""))
+					{
+						JOptionPane.showMessageDialog(currentGUI,"Please enter Start Date","Start Date not entered",0);						
+					}
+					else if (Pattern.compile("\d\d\d\d-\d\d").matcher(plannedStartDateString).find())
+					{
+						
+					}
 					else if(clientIDString.trim().equals(""))
 					{
 						JOptionPane.showMessageDialog(currentGUI,"Please enter Client ID","Client not entered",0);
